@@ -1,26 +1,82 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
+
 
 public class Tower{
+	public string Name;
+	public int type, Price;
 	public float range,Cooldown, currCooldown = 0;
 	public Sprite Spr;
-	public Tower(float range, float cd,string path){
+
+	public Tower(string Name,int type,float range, float cd,int Price,string path){
+		this.Name = Name;
+		this.type = type;
 		this.range = range;
 		Cooldown = cd;
+		this.Price = Price;
 		Spr = Resources.Load<Sprite> (path);
+	}
+	public Tower(Tower other){
+		Name = other.Name;
+		type = other.type;
+		range = other.range;
+		Cooldown = other.Cooldown;
+		Price = other.Price;
+		Spr = other.Spr;
 	}
 }
 public class Towerprojectile{
-	 
+	public float speed;
+	public int damage;
+	public Sprite Spr;
+	public Towerprojectile(float speed, int dmg,string path){
+		this.speed = speed;
+		damage = dmg;
+		Spr = Resources.Load<Sprite> (path);
+	}
 }
 public enum TypeTower{
-	First_tower,Second_tower
+	Fire,Water,Earth,Wind,Light,Dark
 }
+public class Enemy{
+	public float Speed, Startspeed,Health;
+	public Sprite spr;
+	public Enemy(float speed,float health,string path){
+		Health = health;
+		Startspeed = Speed = speed;
+		spr = Resources.Load<Sprite> (path);
+	}
+	public Enemy(Enemy other){
+		Health = other.Health;
+		Startspeed = Speed = other.Speed;
+		spr = other.spr;
+	}
+}
+
 public class GameLogic : MonoBehaviour {
 	public List<Tower> AllTowers =  new List<Tower>();
+	public List<Towerprojectile> Allprojectiles = new List<Towerprojectile>();
+	public List<Enemy> AllEnemies = new List<Enemy>();
 	public void Awake(){
-		AllTowers.Add (new Tower (40, 0.3f,"TowerSpr/First"));
-		AllTowers.Add (new Tower (70, 0.9f,"TowerSpr/Second"));
+		AllTowers.Add (new Tower ("Fire",0,50, 0.2f,10, "TowerSpr/Fire"));
+		AllTowers.Add (new Tower ("Water",1,80, 0.3f,10, "TowerSpr/Water"));
+		AllTowers.Add (new Tower ("Earth",2,90, 0.7f, 10,"TowerSpr/Earth"));
+		AllTowers.Add (new Tower ("Wind",3,170, 0.6f, 10,"TowerSpr/Wind"));
+		AllTowers.Add (new Tower ("Light",4,180, 0.1f, 30,"TowerSpr/Light"));
+		AllTowers.Add (new Tower ("Dark",5,90, 0.3f,30, "TowerSpr/Dark"));
+		Allprojectiles.Add (new Towerprojectile (110, 6, "TowerProject/Fire"));
+		Allprojectiles.Add (new Towerprojectile (130, 5, "TowerProject/Water"));
+		Allprojectiles.Add (new Towerprojectile (100, 8, "TowerProject/Earth"));
+		Allprojectiles.Add (new Towerprojectile (150, 4, "TowerProject/Wind"));
+		Allprojectiles.Add (new Towerprojectile (100, 15, "TowerProject/Light"));
+		Allprojectiles.Add (new Towerprojectile (100, 40, "TowerProject/Dark"));
+		AllEnemies.Add(new Enemy(5,60,"EnemySpr/Earth"));
+		AllEnemies.Add(new Enemy(6,50,"EnemySpr/Water"));
+		AllEnemies.Add(new Enemy(7,40,"EnemySpr/Fire"));
+		AllEnemies.Add(new Enemy(8,30,"EnemySpr/Wind"));
 	}
+
 }

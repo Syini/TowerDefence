@@ -13,9 +13,9 @@ public class GameController : MonoBehaviour {
 		canSpawn = true;
 //		if (Input.GetKeyDown (KeyCode.Escape)) {
 //			ToMenu ();
-//		}
+//		}z
 	}
-	public void exitBtn(){
+	public void QuitBtn(){
 		Application.Quit();
 	}
 //	public void ToMenu(){

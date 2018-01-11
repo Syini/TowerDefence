@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour {
 	int wayIndex = 0;
-	public int speed = 7;
-	public int health = 30;
-
-
 
 	public List<GameObject> wayPoints =  new List<GameObject>();
-
+	public Enemy selfEnemy;
+	public float currHealth;
 	private void  Start(){
+
 		Getwaypoints ();
+		GetComponent<SpriteRenderer> ().sprite = selfEnemy.spr;
 	}
 
 
@@ -20,41 +19,26 @@ public class Unit : MonoBehaviour {
 	void Update () {
 
 		Move ();
-		isAlive ();
+		currHealth = selfEnemy.Health;
 
 	}
 	void Getwaypoints(){
-		//Debug.Log("gotcha");
-		//Debug.Log(GameObject.Find("LevelGroup").GetComponent<LevelManager>().q);
+
 		wayPoints = GameObject.Find("LevelGroup").GetComponent<LevelManager> ().waypoints;
-		for (int i = 0; i < wayPoints.Capacity; i++) {
-			//	Debug.Log("WayPoints = "+ wayPoints[i].transform.position.x +"   "+ wayPoints[i].transform.position.y);
-		}
+
 
 	}
 	private void Move(){
 
 		Transform currWayPoint = wayPoints [wayIndex].transform;
 
-		//Debug.Log (GameObject.Find ("LevelGroup").GetComponent<LevelManager> ().waypoints [wayIndex].transform.position.x + " "
-		//	+ GameObject.Find ("LevelGroup").GetComponent<LevelManager> ().waypoints [wayIndex].transform.position.y);
 		Vector3 currWayPos = new Vector3 (wayPoints[wayIndex].transform.position.x + currWayPoint.GetComponent<SpriteRenderer>().bounds.size.x/2,
 			wayPoints[wayIndex].transform.position.y - currWayPoint.GetComponent<SpriteRenderer>().bounds.size.y/2, transform.position.z);
-		//Debug.Log ("check " + wayPoints [0].transform.position.x + " " + wayPoints [0].transform.position.y); 
-		//Debug.Log ("check " + wayPoints [1].transform.position.x + " " + wayPoints [1].transform.position.y); 
-		//Debug.Log ("откуда " + transform.position.x +"   " + transform.position.y);
-		//Debug.Log (currWayPos +"куда");
-		//Debug (transform.position);
 
 		Vector2	direction = currWayPos - transform.position ;
 
-		//Debug.Log (direction);
-		//Debug.Log (direction.normalized);	
-		//transform.position.x = currWayPoint.position.x;
-		//transform.position.y = currWayPoint.position.y;	
-		//transform.position.Set();
-		transform.Translate(direction*Time.deltaTime*speed, Space.World);
-		if (Vector3.Distance (transform.position, currWayPos) < 0.3f) {
+		transform.Translate(direction*Time.deltaTime*selfEnemy.Speed, Space.World);
+		if (Vector3.Distance (transform.position, currWayPos) < 1f) {
 			if (wayIndex < wayPoints.Count - 1) {
 				wayIndex++;
 			}
@@ -66,12 +50,37 @@ public class Unit : MonoBehaviour {
 
 
 
-	public void TakeDamage(int damage){
-		health -= damage;
+	public void TakeDamage(float damage){
+		selfEnemy.Health -= damage;
+		isAlive ();
 	}
 	void isAlive(){
-		if (health <= 0) {
+		if (selfEnemy.Health <= 0) {
+			MoneyManager.Instance.GameMoney += 5;
 			Destroy (gameObject);
+
 		}
+	}
+	public void StartSlow(float duration,float slowvalue){
+		selfEnemy.Speed = selfEnemy.Startspeed;
+		StopCoroutine("GetSlow");
+		StartCoroutine(GetSlow(duration,slowvalue));
+	}
+	IEnumerator GetSlow(float duration,float slowvalue){
+		selfEnemy.Speed -= slowvalue;
+		yield return new WaitForSeconds (duration);
+		selfEnemy.Speed = selfEnemy.Startspeed;
+	}
+	public void AOEplzWork(float range,float damage){
+		List<Unit> units = new List<Unit>();
+		foreach (GameObject go in GameObject.FindGameObjectsWithTag("Unit")) {
+			if (Vector2.Distance (transform.position, go.transform.position) <= range) {
+				units.Add (go.GetComponent<Unit> ());
+			}
+		}
+		foreach (Unit es in units) {
+			es.TakeDamage (damage);
+		}
+
 	}
 }

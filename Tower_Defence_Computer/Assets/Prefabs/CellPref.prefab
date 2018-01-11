@@ -82,6 +82,8 @@ MonoBehaviour:
   hasTower: 0
   BaseColor: {r: 1, g: 1, b: 1, a: 1}
   CurrColor: {r: 0.6985294, g: 0.6985294, b: 0.6985294, a: 1}
+  ShopPref: {fileID: 1277841821793760, guid: cd7caa5879d39489e87ffc756bd2bce6, type: 2}
+  TowerPref: {fileID: 1297034377517116, guid: de3d3f9492d9845f6901c89292de23a2, type: 2}
 --- !u!212 &212678430875371822
 SpriteRenderer:
   m_ObjectHideFlags: 1

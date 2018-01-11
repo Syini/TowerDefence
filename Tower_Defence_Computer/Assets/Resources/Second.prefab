@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4837120414639580}
   - component: {fileID: 212633060534048640}
   m_Layer: 0
-  m_Name: towerDefense_tile249 1
+  m_Name: Second
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
