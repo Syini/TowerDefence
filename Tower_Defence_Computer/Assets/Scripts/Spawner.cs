@@ -19,6 +19,7 @@ public class Spawner : MonoBehaviour {
 				StartCoroutine (SpawnEnemy (spawnCount));
 				spawn_time = 4;
 				//spawnCount = 1;
+
 			}
 			spawn_time -= Time.deltaTime;
 
@@ -29,7 +30,7 @@ public class Spawner : MonoBehaviour {
 		for (int i = 0; i < enemyCount; i++) {
 			GameObject temp_unit = Instantiate (Unitpref);
 			temp_unit.transform.SetParent (gameObject.transform, false);
-			temp_unit.GetComponent<Unit>().selfEnemy = new Enemy(gl.AllEnemies[Random.Range(0,gl.AllEnemies.Count)]);
+			temp_unit.GetComponent<Unit>().selfEnemy = gl.AllEnemies[Random.Range(0,gl.AllEnemies.Count)];
 			Vector3 startPos = new Vector3 (GameObject.Find("LevelGroup").GetComponent<LevelManager> ().waypoints [0].transform.position.x,
 				GameObject.Find("LevelGroup").GetComponent<LevelManager> ().waypoints [0].transform.position.y);
 

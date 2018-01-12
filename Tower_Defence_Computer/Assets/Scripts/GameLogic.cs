@@ -5,10 +5,10 @@ using UnityEngine.UI;
 using System;
 
 
-public class Tower{
+public struct Tower{
 	public string Name;
 	public int type, Price;
-	public float range,Cooldown, currCooldown = 0;
+	public float range,Cooldown, currCooldown;
 	public Sprite Spr;
 
 	public Tower(string Name,int type,float range, float cd,int Price,string path){
@@ -18,17 +18,11 @@ public class Tower{
 		Cooldown = cd;
 		this.Price = Price;
 		Spr = Resources.Load<Sprite> (path);
+		currCooldown = 0;
 	}
-	public Tower(Tower other){
-		Name = other.Name;
-		type = other.type;
-		range = other.range;
-		Cooldown = other.Cooldown;
-		Price = other.Price;
-		Spr = other.Spr;
-	}
+
 }
-public class Towerprojectile{
+public struct Towerprojectile{
 	public float speed;
 	public int damage;
 	public Sprite Spr;
@@ -41,7 +35,7 @@ public class Towerprojectile{
 public enum TypeTower{
 	Fire,Water,Earth,Wind,Light,Dark
 }
-public class Enemy{
+public struct Enemy{
 	public float Speed, Startspeed,Health;
 	public Sprite spr;
 	public Enemy(float speed,float health,string path){
@@ -49,11 +43,7 @@ public class Enemy{
 		Startspeed = Speed = speed;
 		spr = Resources.Load<Sprite> (path);
 	}
-	public Enemy(Enemy other){
-		Health = other.Health;
-		Startspeed = Speed = other.Speed;
-		spr = other.spr;
-	}
+
 }
 
 public class GameLogic : MonoBehaviour {
