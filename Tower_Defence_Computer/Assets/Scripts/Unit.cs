@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Unit : MonoBehaviour {
 	int wayIndex = 0;
@@ -8,6 +9,8 @@ public class Unit : MonoBehaviour {
 	public List<GameObject> wayPoints =  new List<GameObject>();
 	public Enemy selfEnemy;
 	public float currHealth;
+	public Color HpColor, LostHpColor;
+	public Image Healthbar;
 	private void  Start(){
 
 		Getwaypoints ();
@@ -38,12 +41,13 @@ public class Unit : MonoBehaviour {
 		Vector2	direction = currWayPos - transform.position ;
 
 		transform.Translate(direction*Time.deltaTime*selfEnemy.Speed, Space.World);
-		if (Vector3.Distance (transform.position, currWayPos) < 1f) {
+		if (Vector3.Distance (transform.position, currWayPos) < 10f) {
 			if (wayIndex < wayPoints.Count - 1) {
 				wayIndex++;
+			} else {
+				GameManager.Instance.LosingHP();
+				Destroy (gameObject);
 			}
-			else
-				Destroy (gameObject	);
 		}
 
 	}
@@ -52,11 +56,13 @@ public class Unit : MonoBehaviour {
 
 	public void TakeDamage(float damage){
 		selfEnemy.Health -= damage;
+		Healthbar.fillAmount = selfEnemy.Health / selfEnemy.MaxHealth;
+		Healthbar.color = Color.Lerp (LostHpColor, HpColor, Healthbar.fillAmount);
 		isAlive ();
 	}
 	void isAlive(){
 		if (selfEnemy.Health <= 0) {
-			MoneyManager.Instance.GameMoney += 5;
+			GameManager.Instance.GameMoney += 5;
 			Destroy (gameObject);
 
 		}

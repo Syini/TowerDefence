@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour {
 		gl = FindObjectOfType<GameLogic> ();
 	}
 	void Update () {
-		if (FindObjectOfType<GameController>().canSpawn) {
+		if (GameManager.Instance.canSpawn) {
 			if (spawn_time <= 0) {
 				StartCoroutine (SpawnEnemy (spawnCount));
 				spawn_time = 4;
@@ -27,6 +27,10 @@ public class Spawner : MonoBehaviour {
 	}
 	IEnumerator SpawnEnemy(int enemyCount){
 		spawnCount++;
+		GameManager.Instance.Wave = spawnCount;
+		if (spawnCount == 15) {
+			GameManager.Instance.EndingMenu ();
+		}
 		for (int i = 0; i < enemyCount; i++) {
 			GameObject temp_unit = Instantiate (Unitpref);
 			temp_unit.transform.SetParent (gameObject.transform, false);
@@ -35,7 +39,9 @@ public class Spawner : MonoBehaviour {
 				GameObject.Find("LevelGroup").GetComponent<LevelManager> ().waypoints [0].transform.position.y);
 
 			temp_unit.transform.position = startPos;
-			yield return new WaitForSeconds (1f);
+			yield return new WaitForSeconds (.5f);
 		}
+
 	}
+
 }

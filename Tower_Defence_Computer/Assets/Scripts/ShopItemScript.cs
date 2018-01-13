@@ -29,9 +29,9 @@ public class ShopItemScript : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		GetComponent<Image>().color = BaseColor;
 	}
 	public void OnPointerClick(PointerEventData eventdata){
-		if (MoneyManager.Instance.GameMoney >= selfTower.Price) {
+		if (GameManager.Instance.GameMoney >= selfTower.Price) {
 			selfcell.Build (selfTower);
-			MoneyManager.Instance.GameMoney -= selfTower.Price;
+			GameManager.Instance.GameMoney -= selfTower.Price;
 		}
 	}
 }

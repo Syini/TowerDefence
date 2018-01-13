@@ -8,6 +8,7 @@ public class Cell : MonoBehaviour {
 	public Color BaseColor,CurrColor;
 	public GameObject ShopPref, TowerPref;
 	private void OnMouseEnter(){
+		
 		if (!isGround && FindObjectsOfType<ShopScript>().Length ==0 ) {
 			GetComponent<SpriteRenderer> ().color = CurrColor;
 		}
@@ -16,7 +17,7 @@ public class Cell : MonoBehaviour {
 		GetComponent<SpriteRenderer> ().color = BaseColor;
 	}
 	private void OnMouseDown(){
-		if (!isGround && FindObjectsOfType<ShopScript> ().Length == 0) {
+		if (!isGround && FindObjectsOfType<ShopScript> ().Length == 0 && GameManager.Instance.canSpawn) {
 			if (!hasTower) {
 				GameObject shopobj = Instantiate (ShopPref);
 				shopobj.transform.SetParent (GameObject.Find ("Canvas").transform, false);

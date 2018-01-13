@@ -14,7 +14,6 @@ public class Towersrc : MonoBehaviour {
 		gl = FindObjectOfType<GameLogic>();
 
 		selftower = gl.AllTowers[(int)selftype];
-		Debug.Log (selftower);
 		GetComponent<SpriteRenderer> ().sprite = selftower.Spr;
 		InvokeRepeating ("SearchforTarget",0, .1f);
 	}
