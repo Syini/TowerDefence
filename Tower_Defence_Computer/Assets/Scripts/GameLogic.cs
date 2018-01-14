@@ -24,9 +24,9 @@ public struct Tower{
 }
 public struct Towerprojectile{
 	public float speed;
-	public int damage;
+	public double damage;
 	public Sprite Spr;
-	public Towerprojectile(float speed, int dmg,string path){
+	public Towerprojectile(float speed, double dmg,string path){
 		this.speed = speed;
 		damage = dmg;
 		Spr = Resources.Load<Sprite> (path);
@@ -37,8 +37,10 @@ public enum TypeTower{
 }
 public struct Enemy{
 	public float Speed, Startspeed,Health,MaxHealth;
+	public int type;
 	public Sprite spr;
-	public Enemy(float speed,float health,string path){
+	public Enemy(int type, float speed,float health,string path){
+		this.type = type;
 		MaxHealth = Health = health;
 		Startspeed = Speed = speed;
 		spr = Resources.Load<Sprite> (path);
@@ -62,11 +64,11 @@ public class GameLogic : MonoBehaviour {
 		Allprojectiles.Add (new Towerprojectile (100, 8, "TowerProject/Earth"));
 		Allprojectiles.Add (new Towerprojectile (150, 4, "TowerProject/Wind"));
 		Allprojectiles.Add (new Towerprojectile (100, 15, "TowerProject/Light"));
-		Allprojectiles.Add (new Towerprojectile (100, 40, "TowerProject/Dark"));
-		AllEnemies.Add(new Enemy(3,60,"EnemySpr/Earth"));
-		AllEnemies.Add(new Enemy(4,50,"EnemySpr/Water"));
-		AllEnemies.Add(new Enemy(5,40,"EnemySpr/Fire"));
-		AllEnemies.Add(new Enemy(6,30,"EnemySpr/Wind"));
+		Allprojectiles.Add (new Towerprojectile (100, 35, "TowerProject/Dark"));
+		AllEnemies.Add(new Enemy(0,4,40,"EnemySpr/Fire"));
+		AllEnemies.Add(new Enemy(1,3,50,"EnemySpr/Water"));
+		AllEnemies.Add(new Enemy(2,2,60,"EnemySpr/Earth"));
+		AllEnemies.Add(new Enemy(3,5,30,"EnemySpr/Wind"));
 	}
 
 }

@@ -37,24 +37,24 @@ public class TowerProject : MonoBehaviour {
 	void Hit(){
 		switch (selfTower.type) {
 		case(int)TypeTower.Fire:
-			target.GetComponent<Unit> ().TakeDamage(selfProlectile.damage);
+			target.GetComponent<Unit> ().ElementalDamage(selfProlectile.damage);
 			break;
 		case(int)TypeTower.Water:
 			target.GetComponent<Unit> ().StartSlow (3,2);
-			target.GetComponent<Unit> ().TakeDamage(selfProlectile.damage);
+			target.GetComponent<Unit> ().ElementalDamage(selfProlectile.damage);
 
 			break;
 		case(int)TypeTower.Earth:
 			target.GetComponent<Unit> ().AOEplzWork (60, selfProlectile.damage);
 			break;
 		case(int)TypeTower.Wind:
-			target.GetComponent<Unit> ().TakeDamage(selfProlectile.damage);
+			target.GetComponent<Unit> ().ElementalDamage(selfProlectile.damage);
 			break;
 		case(int)TypeTower.Light:
-			target.GetComponent<Unit> ().TakeDamage(selfProlectile.damage);
+			target.GetComponent<Unit> ().ElementalDamage(selfProlectile.damage);
 			break;
 		case(int)TypeTower.Dark:
-			target.GetComponent<Unit> ().TakeDamage(selfProlectile.damage);
+			target.GetComponent<Unit> ().ElementalDamage(selfProlectile.damage);
 			break;
 		}
 		Destroy (gameObject);

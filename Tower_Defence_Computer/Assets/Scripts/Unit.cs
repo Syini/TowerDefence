@@ -8,6 +8,7 @@ public class Unit : MonoBehaviour {
 
 	public List<GameObject> wayPoints =  new List<GameObject>();
 	public Enemy selfEnemy;
+	public Tower selfTower;
 	public float currHealth;
 	public Color HpColor, LostHpColor;
 	public Image Healthbar;
@@ -54,8 +55,8 @@ public class Unit : MonoBehaviour {
 
 
 
-	public void TakeDamage(float damage){
-		selfEnemy.Health -= damage;
+	public void TakeDamage(double damage){
+		selfEnemy.Health -= (float)damage;
 		Healthbar.fillAmount = selfEnemy.Health / selfEnemy.MaxHealth;
 		Healthbar.color = Color.Lerp (LostHpColor, HpColor, Healthbar.fillAmount);
 		isAlive ();
@@ -77,7 +78,7 @@ public class Unit : MonoBehaviour {
 		yield return new WaitForSeconds (duration);
 		selfEnemy.Speed = selfEnemy.Startspeed;
 	}
-	public void AOEplzWork(float range,float damage){
+	public void AOEplzWork(float range,double damage){
 		List<Unit> units = new List<Unit>();
 		foreach (GameObject go in GameObject.FindGameObjectsWithTag("Unit")) {
 			if (Vector2.Distance (transform.position, go.transform.position) <= range) {
@@ -89,4 +90,10 @@ public class Unit : MonoBehaviour {
 		}
 
 	}
+	public void ElementalDamage(double damage){
+		if (selfTower.type == selfEnemy.type)
+			TakeDamage (damage * 0.5);
+		else TakeDamage (damage);
+	}
+	
 }
