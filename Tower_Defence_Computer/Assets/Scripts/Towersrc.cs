@@ -5,13 +5,13 @@ using UnityEngine;
 public class Towersrc : MonoBehaviour {
 
 	public GameObject Projectile;
-	GameLogic gl;
+	GameLogicscr gl;
 	public Tower selftower;
 	public TypeTower selftype;
 
 	private void Start(){
 
-		gl = FindObjectOfType<GameLogic>();
+		gl = FindObjectOfType<GameLogicscr>();
 
 		selftower = gl.AllTowers[(int)selftype];
 		GetComponent<SpriteRenderer> ().sprite = selftower.Spr;

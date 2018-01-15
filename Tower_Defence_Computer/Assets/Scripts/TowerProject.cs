@@ -6,11 +6,11 @@ public class TowerProject : MonoBehaviour {
 	Transform target;
 	Towerprojectile selfProlectile;
 	public Tower selfTower;
-	GameLogic gl;
+	GameLogicscr gl;
 	// Use this for initialization
 	void Start () {
 		
-		gl = FindObjectOfType<GameLogic>();
+		gl = FindObjectOfType<GameLogicscr>();
 		selfProlectile = gl.Allprojectiles [selfTower.type];
 		GetComponent<SpriteRenderer> ().sprite = selfProlectile.Spr;
 	}

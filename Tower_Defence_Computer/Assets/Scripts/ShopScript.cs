@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class ShopScript : MonoBehaviour {
 	public GameObject ItemPref;
 	public Transform ItemGrid;
-	GameLogic gl;
+	GameLogicscr gl;
 	public Cell selfcell;
 	// Use this for initialization
 	void Start () {
-		gl = FindObjectOfType<GameLogic> ();
+		gl = FindObjectOfType<GameLogicscr> ();
 		foreach (Tower tower in gl.AllTowers) {
 			GameObject temp_Item = Instantiate (ItemPref);
 			temp_Item.transform.SetParent (ItemGrid, false);

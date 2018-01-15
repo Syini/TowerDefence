@@ -5,13 +5,13 @@ using UnityEngine;
 public class Spawner : MonoBehaviour {
 
 	public LevelManager LM;
-	GameLogic gl;
+	GameLogicscr gl;
 	public float spawn_time = 4;
 	int spawnCount = 0;
 	public GameObject Unitpref;
 	// Update is called once per frame
 	private void Start(){
-		gl = FindObjectOfType<GameLogic> ();
+		gl = FindObjectOfType<GameLogicscr> ();
 	}
 	void Update () {
 		if (GameManager.Instance.canSpawn) {
